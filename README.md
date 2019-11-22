@@ -56,7 +56,8 @@ $ docker run -d \
    -p 8082:8080 \
    maslick/telega
 
-$ http -a maslick:12345 POST  `docker-machine ip default`:8081/send <<< '{"text": "Hi folks!"}'
+$ http POST `docker-machine ip default`:8081/send <<< '{"text": "Hi folks!"}'
+$ http -a maslick:12345 POST `docker-machine ip default`:8082/send <<< '{"text": "Hi folks!"}'
 ```
 
 ## K8s
