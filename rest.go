@@ -13,8 +13,13 @@ type RestController struct {
 
 func (service *RestController) Start() {
 	http.HandleFunc("/send", service.SendHandler)
-	fmt.Println("Starting server on port 8080 ...")
-	log.Fatal(http.ListenAndServe(":8080", nil))
+	fmt.Println("Starting server...")
+	log.Fatal(http.ListenAndServe(getPort(), nil))
+}
+
+func getPort() string {
+	var port = GetEnv("PORT", "8080")
+	return ":" + port
 }
 
 func (service *RestController) SendHandler(w http.ResponseWriter, r *http.Request) {
