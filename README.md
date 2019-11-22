@@ -9,7 +9,7 @@ Its primary use-case is sending group notifications from CI (e.g. Jenkins).
 
 ## Installation
 ```zsh
-go build -ldflags="-s -w"
+$ go build -ldflags="-s -w"
 ```
 
 ## Usage
