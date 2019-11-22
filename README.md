@@ -26,7 +26,7 @@ $ go build -ldflags="-s -w" && upx telega
 ```
 
 ## Usage
-* Without authentication
+* Without authentication:
 ```zsh
 $ export TOKEN=1234567890abcdef
 $ export CHAT_ID=-12345
