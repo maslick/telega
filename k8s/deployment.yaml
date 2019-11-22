@@ -1,0 +1,60 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: telega
+  labels:
+    maintainer: maslick
+    project: telega
+    app: telega-api
+spec:
+  ports:
+    - port: 80
+      targetPort: http
+  selector:
+    maintainer: maslick
+    project: telega
+    app: telega-api
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: telega
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      maintainer: maslick
+      project: telega
+      app: telega-api
+  template:
+    metadata:
+      name: telega
+      labels:
+        maintainer: maslick
+        project: telega
+        app: telega-api
+    spec:
+      containers:
+        - image: maslick/telega
+          name: telega
+          ports:
+            - containerPort: 8080
+              name: http
+              protocol: TCP
+          env:
+            - name: TOKEN
+              value: '1234567890abcdef'
+            - name: CHAT_ID
+              value: '-12345'
+            - name: PORT
+              value: '8080'
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: http
+            periodSeconds: 15
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: http
+            periodSeconds: 30

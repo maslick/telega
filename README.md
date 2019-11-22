@@ -38,3 +38,33 @@ $ curl -s -H "Authorization: Basic bWFzbGljazoxMjM0NQ==" -X POST localhost:4000/
 $ http -a maslick:12345 POST  :4000/send <<< '{"text": "Hi folks!"}'
 $ wget --header="Authorization: Basic bWFzbGljazoxMjM0NQ==" -q -O- --post-data="{\"text\":\"Yo, guys\"}" localhost:8080/send
 ```
+
+## Docker
+```zsh
+$ docker build -t maslick/telega .
+$ docker run -d \
+   -e TOKEN=1234567890abcdef \
+   -e CHAT_ID=-12345 \
+   -p 8081:8080 \
+   maslick/telega
+
+$ docker run -d \
+   -e TOKEN=1234567890abcdef \
+   -e CHAT_ID=-12345 \
+   -e USERNAME=maslick \
+   -e PASSWORD=12345 \
+   -p 8082:8080 \
+   maslick/telega
+
+$ http -a maslick:12345 POST  `docker-machine ip default`:8081/send <<< '{"text": "Hi folks!"}'
+```
+
+## K8s
+```zsh
+$ kubectl apply -f k8s
+$ kubectl set env deploy telega \
+   TOKEN=1234567890abcdef \
+   CHAT_ID=-12345 \
+   USERNAME=maslick \
+   PASSWORD=12345
+```

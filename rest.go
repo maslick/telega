@@ -21,6 +21,8 @@ func (service *RestController) Start() {
 		http.HandleFunc("/send", basicAuth(service.SendHandler))
 	}
 
+	http.HandleFunc("/health", service.HealthHandler)
+
 	fmt.Println("Starting server...")
 	log.Fatal(http.ListenAndServe(getPort(), nil))
 }
@@ -32,7 +34,7 @@ func getPort() string {
 
 func (service *RestController) SendHandler(w http.ResponseWriter, r *http.Request) {
 	if r.Method != http.MethodPost {
-		http.Error(w, "only post requests are allowed", 400)
+		http.Error(w, "Only POST requests are allowed", 400)
 		return
 	}
 
@@ -48,10 +50,18 @@ func (service *RestController) SendHandler(w http.ResponseWriter, r *http.Reques
 
 	resp, err := service.Telega.SendTelegramMessage(TOKEN, CHAT_ID, message.Text)
 	if err != nil {
-		http.Error(w, "Message delivery failed", 500)
+		http.Error(w, "Message delivery failed: "+err.Error(), 500)
 	}
 	_, err = w.Write(resp)
 	if err != nil {
 		log.Fatal(err.Error())
 	}
+}
+
+func (service *RestController) HealthHandler(w http.ResponseWriter, r *http.Request) {
+	if r.Method != http.MethodGet {
+		http.Error(w, "Only GET requests are allowed", 400)
+		return
+	}
+	_, _ = w.Write([]byte("UP"))
 }

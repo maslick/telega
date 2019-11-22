@@ -1,0 +1,19 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: telega
+  labels:
+    maintainer: maslick
+    project: telega
+    app: telega-api
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  rules:
+    - host: telega.maslick.ru
+      http:
+        paths:
+          - path: /
+            backend:
+              serviceName: telega
+              servicePort: 80
