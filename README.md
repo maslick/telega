@@ -14,7 +14,7 @@ Its primary use-case is sending group notifications from CI (e.g. Jenkins). Just
 
 ## Features
 * Written in Go :heart:
-* Lightweight: ~2.3 MB zipped static binary
+* Lightweight static binary: ~2.3 MB zipped
 * Cloud-native friendly: Docker + k8s
 * Secure: Basic authentication (optional)
 
