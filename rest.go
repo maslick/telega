@@ -52,6 +52,9 @@ func (service *RestController) SendHandler(w http.ResponseWriter, r *http.Reques
 	if err != nil {
 		http.Error(w, "Message delivery failed: "+err.Error(), 500)
 	}
+
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(http.StatusOK)
 	_, err = w.Write(resp)
 	if err != nil {
 		log.Fatal(err.Error())
@@ -63,5 +66,7 @@ func (service *RestController) HealthHandler(w http.ResponseWriter, r *http.Requ
 		http.Error(w, "Only GET requests are allowed", 400)
 		return
 	}
+	w.Header().Set("Content-Type", "text/plain")
+	w.WriteHeader(http.StatusOK)
 	_, _ = w.Write([]byte("UP"))
 }
