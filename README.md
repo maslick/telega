@@ -1,5 +1,5 @@
 # =telega=
-HTTP proxy for sending messages to telegram chats
+HTTP proxy for sending messages to telegram group chats
 
 
 ## Motivation
