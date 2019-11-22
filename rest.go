@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"os"
 )
 
 type RestController struct {
@@ -12,13 +13,20 @@ type RestController struct {
 }
 
 func (service *RestController) Start() {
-	http.HandleFunc("/send", service.SendHandler)
+	_, ok1 := os.LookupEnv("USERNAME")
+	_, ok2 := os.LookupEnv("PASSWORD")
+	if !ok1 && !ok2 {
+		http.HandleFunc("/send", service.SendHandler)
+	} else {
+		http.HandleFunc("/send", basicAuth(service.SendHandler))
+	}
+
 	fmt.Println("Starting server...")
 	log.Fatal(http.ListenAndServe(getPort(), nil))
 }
 
 func getPort() string {
-	var port = GetEnv("PORT", "8080")
+	var port = getEnv("PORT", "8080")
 	return ":" + port
 }
 
@@ -35,8 +43,8 @@ func (service *RestController) SendHandler(w http.ResponseWriter, r *http.Reques
 		return
 	}
 
-	TOKEN := GetEnv("TOKEN", "")
-	CHAT_ID := GetEnv("CHAT_ID", "")
+	TOKEN := getEnv("TOKEN", "")
+	CHAT_ID := getEnv("CHAT_ID", "")
 
 	resp, err := service.Telega.SendTelegramMessage(TOKEN, CHAT_ID, message.Text)
 	if err != nil {
