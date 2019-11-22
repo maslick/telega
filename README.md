@@ -1,6 +1,12 @@
 # =telega=
 HTTP proxy for sending messages to telegram chats
 
+
+## Motivation
+As you probably know Telegram API is blocked by Russian authorities, meaning one cannot access ``https://api.telegram.org`` from within Russia.
+This simple proxy can be run anywhere except Russia, on any cloud provider e.g. Heroku (free 🍺). 
+Its primary use-case is sending group notifications from CI (e.g. Jenkins).
+
 ## Installation
 ```zsh
 go build -ldflags="-s -w"
