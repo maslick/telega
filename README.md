@@ -3,13 +3,22 @@ HTTP proxy for sending messages to telegram group chats
 
 
 ## Motivation
-As you probably know Telegram API is blocked by Russian authorities, meaning one cannot access ``https://api.telegram.org`` from within Russia.
-This simple proxy can be run anywhere except Russia, on any cloud provider e.g. Heroku (free 🍺). 
+As you probably know Telegram API was blocked by Russian authorities a while ago, meaning one cannot access ``https://api.telegram.org`` from within Russia.
+The solution is to run a proxy outside Russia. In fact there are many proxies out there (primarily SOCKS). 
+Their main disadvantage is that these proxies come and go, and you simply don't have control over this process. If you need a stable connection, you will eventually run your own server.
+This simple HTTP proxy can be run on any cloud provider e.g. Heroku (free 🍺). 
 Its primary use-case is sending group notifications from CI (e.g. Jenkins).
+
+## Features
+* Written in Go :heart:
+* Lightweight: ~2.3 MB
+* Cloud-native friendly (Docker + k8s)  
 
 ## Installation
 ```zsh
+$ go test
 $ go build -ldflags="-s -w"
+$ go build -ldflags="-s -w" && upx telega
 ```
 
 ## Usage
