@@ -27,6 +27,6 @@ $ export PORT=4000
 $ ./telega
 Starting server on port 4000 ...
 
-$ curl -s -H "Authorization: Basic bWFzbGljazoxMjM0NQ==" -X POST localhost:8080/send --data "{\"text\": \"Hello world\"}"
-$ http -a maslick:12345 POST  :8080/send <<< '{"text": "Hi folks!"}'
+$ curl -s -H "Authorization: Basic bWFzbGljazoxMjM0NQ==" -X POST localhost:4000/send --data "{\"text\": \"Hello world\"}"
+$ http -a maslick:12345 POST  :4000/send <<< '{"text": "Hi folks!"}'
 ```
