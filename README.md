@@ -1,5 +1,5 @@
 # =telega=
-HTTP proxy for sending messages to telegram group chats
+HTTP proxy for sending messages to Telegram group chats
 
 [![image size](https://img.shields.io/badge/image%20size-2MB-blue.svg)](https://cloud.docker.com/u/maslick/repository/docker/maslick/telega)
 
