@@ -8,7 +8,7 @@ HTTP proxy for sending messages to Telegram group chats
 ## Motivation
 As you probably know, ``Telegram`` was blocked by Russian authorities a while ago, meaning one cannot access ``https://api.telegram.org`` from within Russia.
 
-<img src="logo.jpg">
+<a href="https://en.wikipedia.org/wiki/Telega"><img src="logo.jpg"></a>
 
 The solution is to run a proxy outside of Russia or use VPN. In fact, there are many proxies out [there](https://mtpro.xyz/api/?type=socks) (primarily SOCKS).
 Their main disadvantage is that these proxies come and go, and you simply don't have control over this process. If you need a stable connection, you would eventually run your own server.
