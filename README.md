@@ -1,3 +1,5 @@
+<img src="logo.jpg">
+
 # =telega=
 HTTP proxy for sending messages to telegram group chats
 
