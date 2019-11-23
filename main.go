@@ -13,8 +13,8 @@ import (
 )
 
 func main() {
-	service := RestController{&Telega{}}
-	service.Start()
+	server := RestController{&Telega{}}
+	server.Start()
 }
 
 ///////////////////////
@@ -60,25 +60,25 @@ func (t *Telega) SendTelegramMessage(token, chat, message string) ([]byte, error
 //////////////////////
 
 type RestController struct {
-	Telega ITelega
+	service ITelega
 }
 
-func (c *RestController) Start() {
+func (this *RestController) Start() {
 	_, ok1 := os.LookupEnv("USERNAME")
 	_, ok2 := os.LookupEnv("PASSWORD")
 	if !ok1 && !ok2 {
-		http.HandleFunc("/send", c.SendHandler)
+		http.HandleFunc("/send", this.SendHandler)
 	} else {
-		http.HandleFunc("/send", basicAuth(c.SendHandler))
+		http.HandleFunc("/send", basicAuth(this.SendHandler))
 	}
 
-	http.HandleFunc("/health", c.HealthHandler)
+	http.HandleFunc("/health", this.HealthHandler)
 
 	fmt.Println("Starting server...")
 	log.Fatal(http.ListenAndServe(getPort(), nil))
 }
 
-func (c *RestController) SendHandler(w http.ResponseWriter, r *http.Request) {
+func (this *RestController) SendHandler(w http.ResponseWriter, r *http.Request) {
 	if r.Method != http.MethodPost {
 		http.Error(w, "Only POST requests are allowed", 400)
 		return
@@ -94,20 +94,17 @@ func (c *RestController) SendHandler(w http.ResponseWriter, r *http.Request) {
 	TOKEN := getEnv("TOKEN", "")
 	CHAT_ID := getEnv("CHAT_ID", "")
 
-	resp, err := c.Telega.SendTelegramMessage(TOKEN, CHAT_ID, message.Text)
+	resp, err := this.service.SendTelegramMessage(TOKEN, CHAT_ID, message.Text)
 	if err != nil {
 		http.Error(w, "Message delivery failed: "+err.Error(), 500)
 	}
 
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusOK)
-	_, err = w.Write(resp)
-	if err != nil {
-		log.Fatal(err.Error())
-	}
+	_, _ = w.Write(resp)
 }
 
-func (c *RestController) HealthHandler(w http.ResponseWriter, r *http.Request) {
+func (_ *RestController) HealthHandler(w http.ResponseWriter, r *http.Request) {
 	if r.Method != http.MethodGet {
 		http.Error(w, "Only GET requests are allowed", 400)
 		return
