@@ -90,7 +90,7 @@ $ http POST `docker-machine ip default`:8081/send <<< '{"text": "Hi folks!"}'
 $ http -a maslick:12345 POST `docker-machine ip default`:8082/send <<< '{"text": "Hi folks!"}'
 ```
 
-## K8s
+## Kubernetes
 ```zsh
 $ kubectl apply -f k8s
 $ kubectl set env deploy telega \
