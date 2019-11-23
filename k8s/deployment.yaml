@@ -42,7 +42,7 @@ spec:
               name: http
               protocol: TCP
           env:
-            - name: TOKEN
+            - name: BOT_TOKEN
               value: '1234567890abcdef'
             - name: CHAT_ID
               value: '-12345'

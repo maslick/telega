@@ -21,9 +21,9 @@ Its primary use-case is sending ``success/failure`` build notifications from CI 
 * Secure: Basic authentication (optional)
 
 ## How it works
-You simply run ``telega`` server with two env. variables: ``$TOKEN`` and ``$CHAT_ID``. 
+You simply run ``telega`` server with two env. variables: ``$BOT_TOKEN`` and ``$CHAT_ID``. 
 
-You get the ``TOKEN`` while creating your bot via ``@BotFather``.
+You get the ``BOT_TOKEN`` while creating your bot via ``@BotFather``.
 ``CHAT_ID`` is the id of the group (or user) you want to send messages to. 
 
 After this, fire a ``POST`` request to ``/send`` and provide a simple json:
@@ -42,7 +42,7 @@ $ go build -ldflags="-s -w" && upx telega
 ## Usage
 * Without authentication:
 ```zsh
-$ export TOKEN=1234567890abcdef
+$ export BOT_TOKEN=1234567890abcdef
 $ export CHAT_ID=-12345
 $ ./telega
 Starting server on port 8080 ...
@@ -54,7 +54,7 @@ $ wget -q -O- --post-data="{\"text\":\"Yo, guys\"}" localhost:8080/send
 
 * With Basic authentication:
 ```zsh
-$ export TOKEN=1234567890abcdef
+$ export BOT_TOKEN=1234567890abcdef
 $ export CHAT_ID=-12345
 $ export USERNAME=maslick
 $ export PASSWORD=12345
@@ -71,13 +71,13 @@ $ wget --header="Authorization: Basic bWFzbGljazoxMjM0NQ==" -q -O- --post-data="
 ```zsh
 $ docker build -t maslick/telega .
 $ docker run -d \
-   -e TOKEN=1234567890abcdef \
+   -e BOT_TOKEN=1234567890abcdef \
    -e CHAT_ID=-12345 \
    -p 8081:8080 \
    maslick/telega
 
 $ docker run -d \
-   -e TOKEN=1234567890abcdef \
+   -e BOT_TOKEN=1234567890abcdef \
    -e CHAT_ID=-12345 \
    -e USERNAME=maslick \
    -e PASSWORD=12345 \
@@ -92,7 +92,7 @@ $ http -a maslick:12345 POST `docker-machine ip default`:8082/send <<< '{"text":
 ```zsh
 $ kubectl apply -f k8s
 $ kubectl set env deploy telega \
-   TOKEN=1234567890abcdef \
+   BOT_TOKEN=1234567890abcdef \
    CHAT_ID=-12345 \
    USERNAME=maslick \
    PASSWORD=12345
