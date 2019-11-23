@@ -1,7 +1,9 @@
 # =telega=
 HTTP proxy for sending messages to Telegram group chats
 
-[![image size](https://img.shields.io/badge/image%20size-2MB-blue.svg)](https://cloud.docker.com/u/maslick/repository/docker/maslick/telega)
+[![Build Status](https://api.travis-ci.org/maslick/telega.svg)](https://travis-ci.org/maslick/telega)
+[![Dockerhub](https://img.shields.io/badge/image%20size-2MB-blue.svg)](https://cloud.docker.com/u/maslick/repository/docker/maslick/telega)
+
 
 ## Motivation
 As you probably know, ``Telegram`` was blocked by Russian authorities a while ago, meaning one cannot access ``https://api.telegram.org`` from within Russia.
