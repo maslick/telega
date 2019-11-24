@@ -2,7 +2,7 @@
 HTTP proxy for sending messages to Telegram group chats
 
 [![Build Status](https://api.travis-ci.org/maslick/telega.svg)](https://travis-ci.org/maslick/telega)
-[![Dockerhub](https://img.shields.io/badge/image%20size-2MB-blue.svg)](https://cloud.docker.com/u/maslick/repository/docker/maslick/telega)
+[![Dockerhub](https://img.shields.io/badge/image%20size-2MB-blue.svg)](https://hub.docker.com/r/maslick/telega)
 
 
 ## Motivation
