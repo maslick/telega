@@ -35,15 +35,18 @@ type Message struct {
 //////////////////////
 
 type ITelega interface {
-	SendTelegramMessage(token, chat, message string) ([]byte, error)
+	SendTelegramMessage(message string) ([]byte, error)
 }
 
 type Telega struct{}
 
-func (t *Telega) SendTelegramMessage(token, chat, message string) ([]byte, error) {
+func (t *Telega) SendTelegramMessage(message string) ([]byte, error) {
+	token := getEnv("BOT_TOKEN", "")
+	chatId := getEnv("CHAT_ID", "")
+
 	url := fmt.Sprintf("https://api.telegram.org/bot%s/sendMessage", token)
 	body := new(bytes.Buffer)
-	err := json.NewEncoder(body).Encode(Message{chat, message})
+	err := json.NewEncoder(body).Encode(Message{chatId, message})
 	if err != nil {
 		return nil, err
 	}
@@ -89,10 +92,7 @@ func (this *RestController) SendHandler(w http.ResponseWriter, r *http.Request) 
 		return
 	}
 
-	token := getEnv("BOT_TOKEN", "")
-	chatId := getEnv("CHAT_ID", "")
-
-	resp, err := this.service.SendTelegramMessage(token, chatId, message.Text)
+	resp, err := this.service.SendTelegramMessage(message.Text)
 	if err != nil {
 		http.Error(w, "Message delivery failed: "+err.Error(), 500)
 	}
