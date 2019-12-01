@@ -75,7 +75,7 @@ func (this *RestController) Start() {
 
 	http.HandleFunc("/health", this.HealthHandler)
 
-	fmt.Println("Starting server...")
+	fmt.Println("Starting server on port:", strings.Split(getPort(), ":")[1])
 	log.Fatal(http.ListenAndServe(getPort(), nil))
 }
 
