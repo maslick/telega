@@ -16,9 +16,10 @@ func (m *Mock) SendTelegramMessage(message string) ([]byte, error) {
 	return []byte(message), nil
 }
 
+var mockServer = RestController{&Mock{}}
+
 func TestHealthEndpoint(t *testing.T) {
-	server := RestController{&Mock{}}
-	handler := http.HandlerFunc(server.HealthHandler)
+	handler := http.HandlerFunc(mockServer.HealthHandler)
 	rr := performRequest(handler, "GET", "/health", nil)
 
 	assert.Equal(t, http.StatusOK, rr.Code)
@@ -27,11 +28,10 @@ func TestHealthEndpoint(t *testing.T) {
 }
 
 func TestSendEndpoint(t *testing.T) {
-	server := RestController{&Mock{}}
 	body := new(bytes.Buffer)
 	_ = json.NewEncoder(body).Encode(Message{"chat", "hello world"})
 
-	handler := http.HandlerFunc(server.SendHandler)
+	handler := http.HandlerFunc(mockServer.SendHandler)
 	rr := performRequest(handler, "POST", "/send", body)
 
 	assert.Equal(t, http.StatusOK, rr.Code)
