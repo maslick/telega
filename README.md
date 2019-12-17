@@ -104,7 +104,7 @@ $ kubectl set env deploy telega \
 ## Heroku
 ```zsh
 $ git clone https://github.com/maslick/telega.git
-$ cd grafana-telegram-proxy
+$ cd telega
 
 $ export HEROKU_APP_NAME=hello-world-app
 $ heroku login
